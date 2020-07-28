@@ -10,68 +10,80 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import UserDetailCard from "../Components/userDetailCard";
+
 const useStyles = makeStyles({
   table: {
-    maxWidth: 650,
+    minWidth: 650,
   },
   tableContainer: {
-    paddingTop: "50px",
+    padding: "40px 50px 0 0",
     maxWidth: 650,
+  },
+  content: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });
 
 export default function ContactsTable(props) {
   const classes = useStyles();
   const { contactsDetails } = props;
+  const [row, setRow] = React.useState(contactsDetails[0]);
+
+  const handleUserClick = (row) => {
+    console.log(row);
+    setRow(row);
+  };
 
   return (
-    <>
-      {!contactsDetails ? (
-        <h3>Loading....</h3>
-      ) : (
-        <div className={classes.tableContainer}>
-          <TableContainer
-            component={Paper}
-            style={{
-              backgroundImage:
-                "linear-gradient(to bottom, #053537, #005f5a, #008d73, #00bc81, #12eb83",
-            }}
-          >
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell>NAME</TableCell>
-                  <TableCell align="center">EMAIL-ID</TableCell>
-                  <TableCell align="center">PHONE-NUMBER</TableCell>
-                </TableRow>
-              </TableHead>
+    <div className={classes.content}>
+      <div className={classes.tableContainer}>
+        <TableContainer
+          component={Paper}
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, #053537, #005f5a, #008d73, #00bc81, #12eb83",
+          }}
+        >
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>NAME</TableCell>
+                <TableCell align="center">EMAIL-ID</TableCell>
+                <TableCell align="center">PHONE-NUMBER</TableCell>
+              </TableRow>
+            </TableHead>
+            {contactsDetails.length > 0 ? (
               <TableBody>
-                {contactsDetails.length > 0 ? (
-                  contactsDetails.map((row, index) => (
-                    <TableRow key={index}>
-                      <TableCell component="th" scope="row">
-                        <Checkbox
-                          value="checkedA"
-                          inputProps={{ "aria-label": "Checkbox A" }}
-                        />
-                      </TableCell>
+                {contactsDetails.map((row, index) => (
+                  <TableRow key={index} onClick={() => handleUserClick(row)}>
+                    <TableCell component="th" scope="row">
+                      <Checkbox
+                        value="checkedA"
+                        inputProps={{ "aria-label": "Checkbox A" }}
+                      />
+                    </TableCell>
 
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="center">{row.email_id}</TableCell>
-                      <TableCell align="center">{row.phone_number}</TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <h3>No Data</h3>
-                )}
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="center">{row.email_id}</TableCell>
+                    <TableCell align="center">{row.phone_number}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      )}
-    </>
+            ) : (
+              <>No Data</>
+            )}
+          </Table>
+        </TableContainer>
+      </div>
+      <div style={{ padding: "60px 0px 0px 50px" }}>
+        {row && <UserDetailCard userDetail={row} />}
+      </div>
+    </div>
   );
 }
