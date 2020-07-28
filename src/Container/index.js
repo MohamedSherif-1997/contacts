@@ -10,8 +10,6 @@ const style = {
   container: {
     display: "flex",
     flexDirection: "column",
-    backgroundImage:
-      "linear-gradient(to right bottom, #051937, #5d2d60, #b63f61, #ee7541, #ebc512)",
     padding: "60px",
     overFlow: "auto",
   },
@@ -22,7 +20,6 @@ const style = {
     height: "55px",
     justifyContent: "space-evenly",
     padding: "5px",
-    overFlow: "auto",
   },
 };
 
