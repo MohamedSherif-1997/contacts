@@ -17,7 +17,7 @@ const filter = createFilterOptions();
 
 function SearchBox(props) {
   const [value, setValue] = React.useState(null);
-  const { classes } = props;
+  const { classes, contactsDetails, onHandleSearch } = props;
 
   return (
     <div>
@@ -25,6 +25,8 @@ function SearchBox(props) {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
+          console.log(newValue.name);
+          onHandleSearch(newValue.name);
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
@@ -32,14 +34,14 @@ function SearchBox(props) {
           if (params.inputValue !== "") {
             filtered.push({
               inputValue: params.inputValue,
-              title: `Add "${params.inputValue}"`,
+              name: `Add "${params.inputValue}"`,
             });
           }
 
           return filtered;
         }}
         id="free-solo-dialog-demo"
-        options={top100Films}
+        options={contactsDetails}
         getOptionLabel={(option) => {
           if (typeof option === "string") {
             return option;
@@ -47,12 +49,12 @@ function SearchBox(props) {
           if (option.inputValue) {
             return option.inputValue;
           }
-          return option.title;
+          return option.name;
         }}
         selectOnFocus
         clearOnBlur
         handleHomeEndKeys
-        renderOption={(option) => option.title}
+        renderOption={(option) => option.name}
         freeSolo
         className={classes.searchBox}
         renderInput={(params) => (
@@ -71,7 +73,5 @@ function SearchBox(props) {
 SearchBox.propTypes = {
   classes: PropTypes.object,
 };
-
-const top100Films = [{ title: "The Shawshank Redemption", year: 1994 }];
 
 export default withStyles(style)(SearchBox);

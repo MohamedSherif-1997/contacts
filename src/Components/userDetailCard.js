@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 export default function UserDetailCard(props) {
   const classes = useStyles();
   const { userDetail } = props;
-  console.log(userDetail && userDetail.name);
   return (
     <React.Fragment>
       <Card className={classes.root}>

@@ -33,7 +33,6 @@ export default function ContactsTable(props) {
   const [row, setRow] = React.useState(contactsDetails[0]);
 
   const handleUserClick = (row) => {
-    console.log(row);
     setRow(row);
   };
 
@@ -52,7 +51,6 @@ export default function ContactsTable(props) {
               <TableRow>
                 <TableCell></TableCell>
                 <TableCell>NAME</TableCell>
-                <TableCell align="center">EMAIL-ID</TableCell>
                 <TableCell align="center">PHONE-NUMBER</TableCell>
               </TableRow>
             </TableHead>
@@ -70,7 +68,6 @@ export default function ContactsTable(props) {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="center">{row.email_id}</TableCell>
                     <TableCell align="center">{row.phone_number}</TableCell>
                   </TableRow>
                 ))}

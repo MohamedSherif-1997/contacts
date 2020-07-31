@@ -15,7 +15,6 @@ const style = {
   },
   searchBox: {
     display: "flex",
-    backgroundColor: "white",
     width: "400px",
     height: "55px",
     justifyContent: "space-evenly",
@@ -28,6 +27,7 @@ class ContactsContainer extends Component {
     super(props);
     this.state = {
       contactsDetails: [],
+      open: false,
     };
   }
   componentDidMount() {
@@ -36,17 +36,35 @@ class ContactsContainer extends Component {
     );
   }
 
+  addContact = (val) => {
+    let newContact = this.state.contactsDetails;
+    newContact.push(val);
+    this.setState({ contactsDetails: newContact, open: false });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { classes } = this.props;
-    const { contactsDetails } = this.state;
+    const { contactsDetails, open } = this.state;
     return (
       <div className={classes.container}>
         <div className={classes.searchBox}>
-          <div>
-            <SearchBox />
+          <div style={{ backgroundColor: "whitesmoke", color: "black" }}>
+            <SearchBox contactsDetails={contactsDetails} />
           </div>
           <div>
-            <AddContacts />
+            <AddContacts
+              addContact={this.addContact}
+              open={open}
+              handleClickOpen={this.handleClickOpen}
+              handleClose={this.handleClose}
+            />
           </div>
         </div>
         <div>
